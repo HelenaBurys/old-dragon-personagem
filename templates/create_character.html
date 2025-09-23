@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="creation-section">
+    <h2>Criação de Personagem</h2>
+    
+    <form method="POST" class="character-form">
+        <div class="form-section">
+            <h3>📝 Identificação</h3>
+            <div class="input-group">
+                <label for="name">Nome do Personagem:</label>
+                <input type="text" id="name" name="name" required 
+                       placeholder="Ex: Aragorn, Legolas, Gimli..." 
+                       class="parchment-input">
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h3>🏹 Raça</h3>
+            <div class="radio-grid">
+                <label class="race-option">
+                    <input type="radio" name="race" value="1" required>
+                    <div class="option-card">
+                        <span class="icon">🧑</span>
+                        <strong>Humano</strong>
+                        <small>Adaptável e versátil</small>
+                    </div>
+                </label>
+                
+                <label class="race-option">
+                    <input type="radio" name="race" value="2">
+                    <div class="option-card">
+                        <span class="icon">🧝</span>
+                        <strong>Elfo</strong>
+                        <small>Gracioso e perceptivo</small>
+                    </div>
+                </label>
+                
+                <label class="race-option">
+                    <input type="radio" name="race" value="3">
+                    <div class="option-card">
+                        <span class="icon">🧔</span>
+                        <strong>Anão</strong>
+                        <small>Resistente e vigoroso</small>
+                    </div>
+                </label>
+                
+                <label class="race-option">
+                    <input type="radio" name="race" value="4">
+                    <div class="option-card">
+                        <span class="icon">🧒</span>
+                        <strong>Halfling</strong>
+                        <small>Furtivo e destemido</small>
+                    </div>
+                </label>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h3>🛡️ Classe</h3>
+            <div class="radio-grid">
+                <label class="class-option">
+                    <input type="radio" name="classe" value="1" required>
+                    <div class="option-card">
+                        <span class="icon">⚔️</span>
+                        <strong>Guerreiro</strong>
+                        <small>Mestre das armas</small>
+                    </div>
+                </label>
+                
+                <label class="class-option">
+                    <input type="radio" name="classe" value="2">
+                    <div class="option-card">
+                        <span class="icon">🙏</span>
+                        <strong>Clérigo</strong>
+                        <small>Poder divino</small>
+                    </div>
+                </label>
+                
+                <label class="class-option">
+                    <input type="radio" name="classe" value="3">
+                    <div class="option-card">
+                        <span class="icon">🎭</span>
+                        <strong>Ladrão</strong>
+                        <small>Habilidades furtivas</small>
+                    </div>
+                </label>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h3>🎲 Método de Atributos</h3>
+            <div class="radio-vertical">
+                <label class="distribution-option">
+                    <input type="radio" name="distribution" value="1" required>
+                    <div class="option-card">
+                        <strong>Clássico</strong>
+                        <small>3d6 em ordem fixa</small>
+                        <em>Para puristas do sistema</em>
+                    </div>
+                </label>
+                
+                <label class="distribution-option">
+                    <input type="radio" name="distribution" value="2">
+                    <div class="option-card">
+                        <strong>Aventureiro</strong>
+                        <small>3d6 distribuídos</small>
+                        <em>Maior controle</em>
+                    </div>
+                </label>
+                
+                <label class="distribution-option">
+                    <input type="radio" name="distribution" value="3">
+                    <div class="option-card">
+                        <strong>Heroico</strong>
+                        <small>4d6 (elimina menor)</small>
+                        <em>Personagens mais fortes</em>
+                    </div>
+                </label>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-large">
+            🐉 Criar Personagem
+        </button>
+    </form>
+</div>
+{% endblock %}

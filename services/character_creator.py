@@ -1,11 +1,10 @@
 import time
-from entities.race import Humano, Elfo, Anao, Halfling
-from entities.classes import Guerreiro, Clerigo, Ladrao
-from services.attribute_service import AttributeService
+from model.race import Humano, Elfo, Anao, Halfling
+from model.classes import Guerreiro, Clerigo, Ladrao
+from services.attribute_service import generate_classic, generate_adventurous, generate_heroic
 
 class CharacterCreator:
     def __init__(self):
-        self.attribute_service = AttributeService()
         self.races = {
             "1": Humano(),
             "2": Elfo(),
@@ -64,7 +63,7 @@ class CharacterCreator:
         
         while True:
             choice = input("Digite sua opção: ")
-            distribution = self.attribute_service.get_distribution_method(choice)
+            distribution = get_distribution_method(choice)
             if distribution:
                 return distribution, choice
             print("Opção inválida! Tente novamente.")
@@ -88,10 +87,10 @@ class CharacterCreator:
         time.sleep(1)
         
         if choice == "1":  # Clássico
-            attributes = self.attribute_service.distribute_attributes(distribution)
+            attributes = distribute_attributes(distribution)
         else:  # Aventureiro ou Heroico
             rolls = distribution.generate_attributes()
-            attributes = self.attribute_service.distribute_attributes(distribution, rolls)
+            attributes = distribute_attributes(distribution, rolls)
         
         from entities.character import Character
         character = Character(name, race, classe, attributes)

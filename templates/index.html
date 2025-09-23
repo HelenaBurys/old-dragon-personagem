@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="welcome-section">
+    <div class="welcome-card">
+        <h2>Bem-vindo, Aventureiro!</h2>
+        <p>Prepare-se para embarcar em uma jornada épica no mundo de Old Dragon</p>
+        <div class="dragon-icon">🐉</div>
+        <a href="{{ url_for('create_character') }}" class="btn btn-primary">Criar Novo Personagem</a>
+    </div>
+
+    <div class="features-grid">
+        <div class="feature-card">
+            <h3>🎲 Sistema de Atributos</h3>
+            <ul>
+                <li><strong>Clássico:</strong> 3d6 em ordem</li>
+                <li><strong>Aventureiro:</strong> 3d6 distribuídos</li>
+                <li><strong>Heroico:</strong> 4d6 (elimina menor)</li>
+            </ul>
+        </div>
+
+        <div class="feature-card">
+            <h3>🏹 Raças Disponíveis</h3>
+            <ul>
+                <li>🧑 Humano</li>
+                <li>🧝 Elfo</li>
+                <li>🧔 Anão</li>
+                <li>🧒 Halfling</li>
+            </ul>
+        </div>
+
+        <div class="feature-card">
+            <h3>🛡️ Classes Heróicas</h3>
+            <ul>
+                <li>⚔️ Guerreiro</li>
+                <li>🙏 Clérigo</li>
+                <li>🎭 Ladrão</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

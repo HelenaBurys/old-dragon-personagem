@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="character-sheet">
+    <div class="sheet-header">
+        <h2>Ficha do Personagem</h2>
+        <a href="{{ url_for('create_character') }}" class="btn btn-secondary">Criar Outro</a>
+    </div>
+
+    <div class="character-card">
+        <div class="character-basic">
+            <div class="character-name">
+                <h3>{{ character.name }}</h3>
+                <span class="level">Nível 1</span>
+            </div>
+            <div class="character-details">
+                <div class="detail">
+                    <span class="label">Raça</span>
+                    <span class="value">{{ character.race.name }}</span>
+                </div>
+                <div class="detail">
+                    <span class="label">Classe</span>
+                    <span class="value">{{ character.classe.name }}</span>
+                </div>
+                <div class="detail">
+                    <span class="label">Pontos de Vida</span>
+                    <span class="value">{{ character.hit_points }}</span>
+                </div>
+                <div class="detail">
+                    <span class="label">Método</span>
+                    <span class="value">{{ character.distribution }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="attributes-section">
+            <h4>📊 Atributos</h4>
+            <div class="attributes-grid">
+                {% for attr, value in character.attributes.items() %}
+                <div class="attribute-card">
+                    <div class="attr-name">{{ attr }}</div>
+                    <div class="attr-value">{{ value }}</div>
+                    <div class="attr-mod">
+                        {% set mod = (value - 10) // 2 %}
+                        {% if mod >= 0 %}+{% endif %}{{ mod }}
+                    </div>
+                    <div class="attr-desc">
+                        {% if value <= 6 %}💀 Fraco
+                        {% elif value <= 10 %}⚖️ Mediano
+                        {% elif value <= 15 %}💪 Bom
+                        {% else %}🌟 Excelente
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="abilities-section">
+            <div class="race-abilities">
+                <h4>🌟 Habilidades Raciais</h4>
+                <ul>
+                    {% for ability in character.race.abilities %}
+                    <li>{{ ability }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="class-abilities">
+                <h4>🎯 Habilidades de Classe</h4>
+                <ul>
+                    {% for ability in character.classe.abilities %}
+                    <li>{{ ability }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="equipment-section">
+            <h4>🎒 Equipamento Inicial</h4>
+            <p>Seu personagem começa com equipamento básico conforme sua classe.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
