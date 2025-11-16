@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, session, redirect, url_for
 import random
 from services.character_creator import CharacterCreator
 from model.character import Character
+from services.save_service import save_character_to_json
 
 app = Flask(__name__)
 app.secret_key = 'old_dragon_rpg_secret_key'
@@ -21,19 +22,38 @@ def create_character():
             'distribution_choice': request.form['distribution']
         }
         
-        # Criar personagem usando sua classe existente
+        # Criar personagem usando a fábrica existente (objetos de raça/classe)
         creator = CharacterCreator()
-        
-        # Simular o processo de criação
+
+        # Gerar atributos baseado na escolha
+        attributes = generate_attributes(character_data['distribution_choice'])
+
+        # Instanciar o Character real (usa objetos de raça e classe)
+        race_obj = creator.races.get(character_data['race_choice'])
+        class_obj = creator.classes.get(character_data['class_choice'])
+
+        # Se por algum motivo as escolhas não existirem, voltar com erro simples
+        if race_obj is None or class_obj is None:
+            return "Escolha de raça ou classe inválida.", 400
+
+        character = Character(character_data['name'], race_obj, class_obj, attributes)
+
+        # Salvar em arquivo JSON (serializa com __dict__ e converte nested objects)
+        try:
+            save_path = save_character_to_json(character)
+        except Exception as e:
+            # Se falhar ao salvar, logamos na sessão a mensagem de erro simples
+            session['save_error'] = str(e)
+            save_path = None
+
+        # Guardar informações na sessão para a tela de ficha
         session['character_name'] = character_data['name']
         session['race_choice'] = character_data['race_choice']
         session['class_choice'] = character_data['class_choice']
         session['distribution_choice'] = character_data['distribution_choice']
-        
-        # Gerar atributos baseado na escolha
-        attributes = generate_attributes(character_data['distribution_choice'])
         session['attributes'] = attributes
-        
+        session['save_path'] = save_path
+
         return redirect(url_for('character_sheet'))
     
     return render_template('create_character.html')
